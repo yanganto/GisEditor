@@ -55,8 +55,8 @@ impl DiskCache{
 enum MapDescriptorField{
     None,
     Name,
-    MinZoom, // also level_min
-    MaxZoom, // alse level_max
+    MinZoom, 
+    MaxZoom, 
     TileType,
     TileUpdate,
     Url,
@@ -136,14 +136,8 @@ impl MapDescriptor{
         Ok(())
     }
 
-    #[getter]
-    fn get_level_min(&self) -> PyResult<(u8)> { Ok(self.min_zoom) }
-
-    #[getter]
-    fn get_level_max(&self) -> PyResult<(u8)> { Ok(self.max_zoom) }
-
     #[setter]
-    fn set_level_min(&mut self, value: u8) -> PyResult<()> {
+    fn set_min_zoom(&mut self, value: u8) -> PyResult<()> {
         let normal_value = std::cmp::min(24, std::cmp::max(0, value));
         if normal_value > self.max_zoom {
             self.min_zoom = self.max_zoom;
@@ -155,7 +149,7 @@ impl MapDescriptor{
     }
 
     #[setter]
-    fn set_level_max(&mut self, value: u8) -> PyResult<()> {
+    fn set_max_zoom(&mut self, value: u8) -> PyResult<()> {
         let normal_value = std::cmp::min(24, std::cmp::max(0, value));
         if normal_value < self.min_zoom{
             self.max_zoom = self.min_zoom;
@@ -212,13 +206,6 @@ impl MapDescriptor{
                              &mut self.lower_corner.1, &mut self.upper_corner.0, &mut self.upper_corner.1, &mut self.expire_sec);
         Ok(())
     }
-
-    // CamelStyle is not suitable for python
-    // This function may deprecated
-    // please call read method
-    // fn parseXml(&mut self, file_path: Option<String>) -> PyResult<()>{
-    //     self.read(file_path)
-    // }
 
     // XXX: not sure clone is nessary
     // fn clone(&self){

@@ -44,7 +44,7 @@ def downloadJob(tile_map, level, x, y):
 
 def downloadArea(map, low_lat, up_lat, left_lon, right_lon):
     #level
-    for level in range(map.level_min, map.level_max+1):
+    for level in range(map.min_zoom, map.max_zoom + 1):
         #x, y
         min_x, min_y = TileSystem.getTileXYByLatLon(up_lat, left_lon, level)
         max_x, max_y = TileSystem.getTileXYByLatLon(low_lat, right_lon, level)

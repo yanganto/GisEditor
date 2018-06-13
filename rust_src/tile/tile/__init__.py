@@ -43,9 +43,9 @@ class TileAgent:
     @property
     def map_title(self): return self.__map_desc.map_title
     @property
-    def level_min(self): return self.__map_desc.level_min
+    def level_min(self): return self.__map_desc.min_zoom
     @property
-    def level_max(self): return self.__map_desc.level_max
+    def level_max(self): return self.__map_desc.max_zoom
     @property
     def url_template(self): return self.__map_desc.url_template
     @property
@@ -73,8 +73,8 @@ class TileAgent:
         self.__map_desc = MapDescriptor()
         self.__map_desc.map_id = map_desc.map_id
         self.__map_desc.map_title = map_desc.map_title
-        self.__map_desc.level_min = map_desc.level_min
-        self.__map_desc.level_max = map_desc.level_max
+        self.__map_desc.min_zoom = map_desc.min_zoom
+        self.__map_desc.max_zoom = map_desc.max_zoom
         self.__map_desc.tile_format = map_desc.tile_format
         self.__map_desc.url_template = map_desc.url_template
         self.__map_desc.server_parts = map_desc.server_parts
@@ -299,7 +299,6 @@ class TileAgent:
 
     def __getTile(self, level, x, y, req_type=None, cb=None):
         if level > self.level_max or level < self.level_min:
-            logging.error("level:{} not in range ({},{})".format(level, level_max, level_min))
             raise ValueError("level is out of range")
 
         id = self.genTileId(level, x, y)

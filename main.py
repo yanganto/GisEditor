@@ -1337,9 +1337,9 @@ class MapAgent:
     @property
     def map_title(self): return self.__map_desc.map_title
     @property
-    def level_min(self): return self.__map_desc.level_min
+    def level_min(self): return self.__map_desc.min_zoom
     @property
-    def level_max(self): return self.__map_desc.level_max
+    def level_max(self): return self.__map_desc.max_zoom
     @property
     def url_template(self): return self.__map_desc.url_template
     @property

@@ -46,10 +46,10 @@ class MapDescriptor:
         name.text = self.map_title
 
         min_zoom = ET.SubElement(root, "minZoom")
-        min_zoom.text = str(self.level_min)
+        min_zoom.text = str(self.min_zoom)
 
         max_zoom = ET.SubElement(root, "maxZoom")
-        max_zoom.text = str(self.level_max)
+        max_zoom.text = str(self.max_zoom)
 
         tile_type = ET.SubElement(root, "tileType")
         tile_type.text = self.tile_format
@@ -97,8 +97,8 @@ class MapDescriptor:
         desc = MapDescriptor()
         desc.map_id = self.map_id
         desc.map_title = self.map_title
-        desc.level_min = self.level_min
-        desc.level_max = self.level_max
+        desc.min_zoom = self.min_zoom
+        desc.max_zoom = self.max_zoom
         desc.tile_format = self.tile_format
         desc.url_template = self.url_template
         desc.server_parts = self.server_parts
@@ -199,8 +199,8 @@ class MapDescriptor:
         desc = MapDescriptor()
         desc.map_id = id
         desc.map_title = name
-        desc.level_min = min_zoom
-        desc.level_max = max_zoom
+        desc.min_zoom = min_zoom
+        desc.max_zoom = max_zoom
         desc.url_template = url
         desc.server_parts = server_parts.split(' ') if server_parts else None
         desc.invert_y = (invert_y == "true")
@@ -252,9 +252,9 @@ class TileAgent:
     @property
     def map_title(self): return self.__map_desc.map_title
     @property
-    def level_min(self): return self.__map_desc.level_min
+    def level_min(self): return self.__map_desc.min_zoom
     @property
-    def level_max(self): return self.__map_desc.level_max
+    def level_max(self): return self.__map_desc.max_zoom
     @property
     def url_template(self): return self.__map_desc.url_template
     @property
@@ -352,7 +352,7 @@ class TileAgent:
         if self.invert_y:
             y = self.flipY(y, level)
 
-        url = self.url_template;
+        url = self.url_template
 
         if self.server_parts:
             url = url.replace("{$serverpart}", random.choice(self.server_parts))
